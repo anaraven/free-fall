@@ -58,12 +58,12 @@ y obtenemos esta imagen[^a8d0cddd], que ya parece decirnos algo:
 
 [^a8d0cddd]: Para limitar la imagen a un tamaño razonable, se puede usar `convert $(seq -w 110 5 245 |sed 's/\(.*\)/col\1.jpg/') +append composite.jpg`
 
-![](composite.jpg)
+![](../../../images/2018/cmb1/composite.jpg)
 
 # Aislando la imagen de la pelota
-<div class="sidenote">
-![Imagen de fondo para aislar la pelota](bgr.jpg)
-</div>
+::: sidenote
+![Imagen de fondo para aislar la pelota](../../../images/2018/cmb1/bgr.jpg)
+:::
 Ya que tenemos las herramientas, podemos usar el computador para medir la distancia de la pelota al borde superior en cada frame. Lo ideal es aislar la pelota y separarla del fondo. Para eso necesitamos una referencia del fondo. Como la mayoría de las veces la pelota no está en ningún punto fijo, podemos construir una "imagen de fondo" tomando la mediana de cada frame:
 ```sh
 convert col0???.jpg -evaluate-sequence median bgr.jpg
@@ -82,7 +82,7 @@ convert diff*.jpg +append -negate composite-diff.jpg
 ```
 y obtenemos esto:
 
-![](composite-diff.jpg)
+![](../../../images/2018/cmb1/composite-diff.jpg)
 
 Ahora podemos extraer el canal amarillo de cada archivo `diff*.jpg` y convertirlo a texto. Para esto usamos `convert` una vez más, y escogemos el formato PGM para la salida estándar. Hay 4 líneas de encabezado y luego una línea de texto por cada línea en la imagen. Usando `gawk` calculamos la mediana de cada línea.
 ```sh
@@ -99,23 +99,29 @@ Ahora el archivo `median.tsv` contiene la intensidad de amarillo en cada línea 
 # Localización automática de la pelota
 En R podemos leer nuestros datos y hacer un gráfico simple
 
+
 ```r
 signal <- read.delim("median.tsv", header=FALSE)
 
 frames <- 1:ncol(signal)
 pixels <- 1:nrow(signal)
 
+opar=par(mfrow=c(1,2))
 plot(pixels, pixels, type="n", ylab="pixels", xlab="frame",
      xlim=range(frames))
 for(i in frames) {
   lines(0.1*signal[[i]]+i, rev(pixels))
 }
+image(x=frames, y=pixels, z=t(signal)[,rev(pixels)],
+      useRaster = TRUE, col = terrain.colors(200))
 ```
 
 <img src="un-experimento_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" />
+
 La matriz `signal` tiene una columna por cada frame y una fila por cada pixel en el eje vertical.
 
 En principio podemos encontrar la localización de cada *peak* usando la función `which.max()` en cada columna, pero el resultado no es muy bueno
+
 
 ```r
 fall <- data.frame(frames,
@@ -124,26 +130,22 @@ plot(y ~ frames, data=fall)
 ```
 
 <img src="un-experimento_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" />
-Podemos reducir el ruido tomando un filtro de mediana móvil
+
+Podemos reducir el ruido tomando un filtro de mediana móvil. Ahora la localización de la pelota se vé mucho mejor
+
 
 ```r
 clean_signal <- sapply(frames, function(i) runmed(signal[[i]], k=11))
-image(x=frames, y=pixels, z=t(clean_signal)[,rev(pixels)],
-      useRaster = TRUE, col = terrain.colors(200))
-```
-
-<img src="un-experimento_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" />
-Ahora la localización de la pelota se vé mucho mejor
-
-```r
 fall$px <- -apply(clean_signal[30:700,], 2, which.max)
 plot(px ~ frames, data=fall)
 model_px <- lm(px ~ frames + I(frames^2), data=fall)
 lines(predict(model_px), col="red", lwd=2)
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" />
+
 y obtenemos un buen ajuste a un modelo polinomial de segundo grado
+
 
 ```r
 summary(model_px)
@@ -170,7 +172,8 @@ Residual standard error: 4.63 on 133 degrees of freedom
 Multiple R-squared:  0.999,	Adjusted R-squared:  0.999 
 F-statistic: 1.2e+05 on 2 and 133 DF,  p-value: <2e-16
 ```
-Esta prueba de concepto está limitada por las unidades. Tenemos pixeles por frame, y queremos metros por segundo. Necesitamos más información
+
+Esta prueba de concepto está limitada por las unidades de medida. Tenemos pixeles por frame, y queremos metros por segundo. Necesitamos más información
 
 # ¿Cuánto dura cada frame?
 En el video original, y en cada imagen de un frame completo, se puede ver el cronómetro. En teoría se puede usar OCR para obtener ese número. En la práctica es más fácil hacerlo "a mano", con la ayuda del computador.
@@ -183,21 +186,25 @@ f <- read.delim("read-20181208T0857.txt")
 ```
 El archivo tiene tres columnas: *frame*, *file*, y *millisec*. Varias líneas tienen el campo *millisec* vacío, y las podemos eliminar. Tambien eliminamos las lineas duplicadas
 
+
 ```r
 f <- subset(f, !is.na(millisec))
 f <- subset(f, !duplicated(millisec))
 plot(millisec ~ frame, f)
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" />
+
 Se observa claramente que los primeros frames son a una velocidad distinta que los últimos. Para encontrar el punto exacto podemos evaluar la "derivada"
+
 
 ```r
 plot(diff(f$millisec)/diff(f$frame))
 abline(h=10)
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" />
+
 Vemos que todos los primeros frames toman más de 10 milisegundos. Usamos ese valor como punto de corte.
 
 ```r
@@ -207,8 +214,11 @@ text(diff(f$millisec)/diff(f$frame), labels=f$frame, cex=0.5)
 abline(v=which(f$frame==thr))
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" />
+
+
 Esto quiere decir que el frame `thr=`31 es el primero en cámara lenta. Usamos ese limite para construir un modelo lineal
+
 
 ```r
 model_time <- lm(millisec~frame, f, subset=frame>=thr)
@@ -235,7 +245,9 @@ Residual standard error: 8.28 on 52 degrees of freedom
 Multiple R-squared:     1,	Adjusted R-squared:     1 
 F-statistic: 1.29e+05 on 1 and 52 DF,  p-value: <2e-16
 ```
-Es decir, cada frame tiene una duración de 4.168 milisegundos, en promedio. Más precisamente, la duración está en este intervalo
+
+Es decir, cada frame tiene una duración de 4.168 milisegundos, en promedio. Más precistamente, la duración está en este intervalo
+
 
 ```r
 confint(model_time)
@@ -248,6 +260,7 @@ frame          4.14    4.19
 ```
 Ahora podemos agregar una columna con el tiempo en milisegundos de cada frame. Para simplificar el siguiente análisis vamos a fijar el primer frame como tiempo 0.
 
+
 ```r
 fall$time <- (fall$frames-1)*coef(model_time)["frame"]
 ```
@@ -255,21 +268,24 @@ fall$time <- (fall$frames-1)*coef(model_time)["frame"]
 # Midiendo la distancia vertical
 Nuestro dato de distancia está expresado en *pixels*. Necesitamos convertirlo a metros. Primero vamos a medir la distancia entre cada banda de color blanco y negro. Graficamos la señal original del último frame, sin ningún filtro
 
+
 ```r
 last_frame <- signal[ , ncol(signal)]
 plot(last_frame, type="l")
 abline(h=25)
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" />
+
 Hay varios peaks equiespaciados (o casi). Estos corresponden a las transiciones entre los colores de las bandas. Si hubiese usado un trípode no se verían. En este caso el pequeño movimiento de la cámara es una ventaja. Tomando un corte al nivel 25, podemos agrupar los valores similares en unos pocos grupos.
+
 
 ```r
 px <- which(last_frame>25 & last_frame<50)
 hist(px, nclass=20,col="grey")
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" />
 Vemos que hay 5 grupos naturales. Le asignamos una etiqueta a cada uno de ellos
 
 ```r
@@ -277,8 +293,11 @@ bar <- as.numeric(cut(px, 5))
 plot(bar~px)
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" />
+
+
 Esto quiere decir que la correlación entre pixels y barras es razonablemente lineal. El único dato extra que necesitamos es el tamaño de cada barra en centímetros. Esto no lo medí con cuidado, lo haré mejor la próxima vez. Una barra negra en el centro midió entre 18 y 19 centímetros. Los peaks de este modelo están cada dos barras, es decir, cada 36cm. Incorporamos ese dato en nuestro modelo de distancias.
+
 
 ```r
 mtr <- bar*0.36
@@ -287,7 +306,7 @@ plot(mtr ~ px)
 abline(model_dist)
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" />
 
 ```r
 summary(model_dist)
@@ -317,6 +336,7 @@ F-statistic: 1.51e+04 on 1 and 14 DF,  p-value: <2e-16
 # Modelo Final
 Ahora estamos en condiciones de juntar todo. Agregamos una columna con la posición vertical en metros y otra con el tiempo en segundos. Para calcular el modelo polinomial de segundo grado, agregamos otra columna con el tiempo al cuadrado.
 
+
 ```r
 fall$y_m <- predict(model_dist, newdata=data.frame(px=fall$px))
 fall$t_sec <- fall$time/1000
@@ -325,12 +345,12 @@ fall$t_sec2 <- fall$t_sec^2
 Ahora hacemos el modelo final. 
 
 ```r
-model_final <- lm(y_m ~ t_sec + t_sec2, data=fall, subset=frames<138)
+model_final <- lm(y_m ~ t_sec + t_sec2, data=fall)
 plot(y_m ~ t_sec, data=fall)
 lines(predict(model_final, newdata=fall)~ t_sec, data=fall, col="red", lwd=2)
 ```
 
-<img src="un-experimento_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" />
+<img src="un-experimento_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" />
 
 
 ```r
@@ -340,8 +360,7 @@ summary(model_final)
 ```
 
 Call:
-lm(formula = y_m ~ t_sec + t_sec2, data = fall, subset = frames < 
-    138)
+lm(formula = y_m ~ t_sec + t_sec2, data = fall)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
