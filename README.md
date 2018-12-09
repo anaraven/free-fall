@@ -29,7 +29,7 @@ Pero no todo está perdido. En teoría el video se graba a una velocidad constan
 
 Con 30 frames/segundo por 12.14 segundos, se obtienen 365 archivos *jpg*. Revisando cuadro por cuadro decidí que lo más interesante sucede entre el frame 110 y el 245.
 
-Para estudiar la caída, sólo se necesitan una columna de 40 o 50 pixeles de ancho. Para manipular imágenes se puede usar el programa `convert` de _Imagemagik_, que puede hacer muchísimas cosas desde la línea de comando. Por ejemplo el comando
+Para estudiar la caída, sólo se necesitan una columna de 40 o 50 pixeles de ancho. Para manipular imágenes se puede usar el programa `convert` de [_Imagemagik_](http://www.imagemagick.org/Usage/), que puede hacer muchísimas cosas desde la línea de comando. Por ejemplo el comando
 ```sh
 convert frame0110.jpg -crop 40x700+310+20 col0110.jpg
 ```
@@ -44,9 +44,7 @@ Luego se junta todo usando el comando
 ```sh
 convert col0???.jpg +append composite.jpg
 ```
-y obtenemos esta imagen[^a8d0cddd], que ya parece decirnos algo:
-
-[^a8d0cddd]: Para limitar la imagen a un tamaño razonable, se puede usar `convert $(seq -w 110 5 245 |sed 's/\(.*\)/col\1.jpg/') +append composite.jpg`
+y obtenemos esta imagen[^1], que ya parece decirnos algo:
 
 ![](composite.jpg)
 
@@ -87,7 +85,7 @@ paste median*.txt > median.tsv
 Ahora el archivo `median.tsv` contiene la intensidad de amarillo en cada línea de cada frame. Este archivo lo procesamos con R.
 
 # Localización automática de la pelota
-En R podemos leer nuestros datos y hacer un gráfico simple
+En R podemos leer [nuestros datos](median.tsv) y hacer un gráfico simple
 
 
 ```r
@@ -168,7 +166,7 @@ Esta prueba de concepto está limitada por las unidades de medida. Tenemos pixel
 # ¿Cuánto dura cada frame?
 En el video original, y en cada imagen de un frame completo, se puede ver el cronómetro. En teoría se puede usar OCR para obtener ese número. En la práctica es más fácil hacerlo "a mano", con la ayuda del computador.
 
-Usando JavaScript hice una página web local en mi computador que muestra cada frame uno por uno, y presenta un cuadro de entrada dónde se puede escribir el número que se lee en la foto. Si el número no cambia se puede dejar la entrada en blanco. El programa JavaScript colecta los datos y permite descargarlos al final. Obtuve el archivo `read-20181208T0857.txt`, que podemos leer en R.
+Usando JavaScript hice [una página web](https://anaraven.github.io/free-fall/) que muestra cada frame uno por uno, y presenta un cuadro de entrada dónde se puede escribir el número que se lee en la foto. Si el número no cambia se puede dejar la entrada en blanco. El programa JavaScript colecta los datos y permite descargarlos al final. Obtuve el archivo [`read-20181208T0857.txt`](read-20181208T0857.txt), que podemos leer en R.
 
 
 ```r
@@ -368,3 +366,13 @@ Residual standard error: 0.011 on 133 degrees of freedom
 Multiple R-squared:  0.999,	Adjusted R-squared:  0.999 
 F-statistic: 1.2e+05 on 2 and 133 DF,  p-value: <2e-16
 ```
+
+De acuerdo a esto, la aceleración de gravedad es 10m/s^2^. Un poco mucho. Sospecho que:
+
++ Hay que tener un mejor reloj
++ Hay que medir las distancias con más cuidado
+
+El verdadero desafío es rehacer todo llevando la cuenta de los márgenes de error en cada paso.
+
+
+[^1]: Para limitar la imagen a un tamaño razonable, se puede usar `convert $(seq -w 110 5 245 |sed 's/\(.*\)/col\1.jpg/') +append composite.jpg`
