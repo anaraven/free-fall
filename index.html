@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="images.css">
+  <title>Frames</title>
+</head>
+<body>
+<div class="data">
+  <fieldset class="person">
+    <legend>Frame</legend>
+    <div class="mt1">
+      <span id="frame"></span>
+      <label class="db" for="card">Millisec</label>
+      <input type="text" onchange="updateTitle(this)">
+      <button onclick="download()">Save file</button>
+    </div>
+  </fieldset>
+</div>
+<img id="all"></img>
+<script src="files.json"></script>
+<script>
+const all = document.getElementById('all');
+const frame = document.getElementById('frame');
+var num = 0;
+var log = "number\tfile\tvalue\n";
+
+frame.innerText = all.src = filenames[num];
+
+function updateTitle(tgt) {
+  console.log(num+" "+tgt.value)
+  log += num + '\t' + filenames[num]+ '\t' +  tgt.value +'\n';
+  frame.innerText = all.src = filenames[++num];
+  tgt.value = "";
+}
+
+// Function to download data to a file
+function download() {
+    let now = new Date();
+    let dt = now.toISOString().substr(0,16)
+    dt = dt.split('-').join("").split(':').join('')
+    const filename = 'read-'+dt+'.txt';
+    var file = new Blob([log], {type: 'text/plain'});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
+</script>
+</body>
+</html>

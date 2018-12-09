@@ -1,0 +1,366 @@
+frame	file	millisec
+0	thumb0001.jpg	1023
+1	thumb0002.jpg	1048
+2	thumb0003.jpg	1073
+3	thumb0004.jpg	1098
+4	thumb0005.jpg	1153
+5	thumb0006.jpg	1179
+6	thumb0007.jpg	1205
+7	thumb0008.jpg	1255
+8	thumb0009.jpg	1280
+9	thumb0010.jpg	1306
+10	thumb0011.jpg	1332
+11	thumb0012.jpg	1387
+12	thumb0013.jpg	1412
+13	thumb0014.jpg	 
+14	thumb0015.jpg	1490
+15	thumb0016.jpg	 
+16	thumb0017.jpg	1542
+17	thumb0018.jpg	1593
+18	thumb0019.jpg	 
+19	thumb0020.jpg	1646
+20	thumb0021.jpg	1672
+21	thumb0022.jpg	1724
+22	thumb0023.jpg	 
+23	thumb0024.jpg	1779
+24	thumb0025.jpg	1804
+25	thumb0026.jpg	 
+26	thumb0027.jpg	1831
+27	thumb0028.jpg	1856
+28	thumb0029.jpg	 
+29	thumb0030.jpg	1882
+30	thumb0031.jpg	 
+31	thumb0032.jpg	1907
+32	thumb0033.jpg	 
+33	thumb0034.jpg	 
+34	thumb0035.jpg	 
+35	thumb0036.jpg	 
+36	thumb0037.jpg	1933
+37	thumb0038.jpg	 
+38	thumb0039.jpg	 
+39	thumb0040.jpg	 
+40	thumb0041.jpg	1959
+41	thumb0042.jpg	 
+42	thumb0043.jpg	 
+43	thumb0044.jpg	 
+44	thumb0045.jpg	1987
+45	thumb0046.jpg	
+46	thumb0047.jpg	 
+47	thumb0048.jpg	 
+48	thumb0049.jpg	 
+49	thumb0050.jpg	 
+50	thumb0051.jpg	 
+51	thumb0052.jpg	 
+52	thumb0053.jpg	2012
+53	thumb0054.jpg	
+54	thumb0055.jpg	 
+55	thumb0056.jpg	 
+56	thumb0057.jpg	 
+57	thumb0058.jpg	 
+58	thumb0059.jpg	 
+59	thumb0060.jpg	 
+60	thumb0061.jpg	2038
+61	thumb0062.jpg	
+62	thumb0063.jpg	 
+63	thumb0064.jpg	 
+64	thumb0065.jpg	2065
+65	thumb0066.jpg	 
+66	thumb0067.jpg	 
+67	thumb0068.jpg	 
+68	thumb0069.jpg	2091
+69	thumb0070.jpg	 
+70	thumb0071.jpg	 
+71	thumb0072.jpg	 
+72	thumb0073.jpg	 
+73	thumb0074.jpg	 
+74	thumb0075.jpg	 
+75	thumb0076.jpg	 
+76	thumb0077.jpg	 
+77	thumb0078.jpg	 
+78	thumb0079.jpg	 
+79	thumb0080.jpg	 
+80	thumb0081.jpg	2116
+81	thumb0082.jpg	
+82	thumb0083.jpg	 
+83	thumb0084.jpg	 
+84	thumb0085.jpg	2142
+85	thumb0086.jpg	
+86	thumb0087.jpg	 
+87	thumb0088.jpg	 
+88	thumb0089.jpg	2172
+89	thumb0090.jpg	 
+90	thumb0091.jpg	 
+91	thumb0092.jpg	 
+92	thumb0093.jpg	 
+93	thumb0094.jpg	 
+94	thumb0095.jpg	 
+95	thumb0096.jpg	 
+96	thumb0097.jpg	 
+97	thumb0098.jpg	2197
+98	thumb0099.jpg	 
+99	thumb0100.jpg	 
+100	thumb0101.jpg	 
+101	thumb0102.jpg	2223
+102	thumb0103.jpg	 
+103	thumb0104.jpg	 
+104	thumb0105.jpg	 
+105	thumb0106.jpg	 
+106	thumb0107.jpg	 
+107	thumb0108.jpg	 
+108	thumb0109.jpg	 
+109	thumb0110.jpg	2247
+110	thumb0111.jpg	 
+111	thumb0112.jpg	 
+112	thumb0113.jpg	 
+113	thumb0114.jpg	2273
+114	thumb0115.jpg	 
+115	thumb0116.jpg	 
+116	thumb0117.jpg	 
+117	thumb0118.jpg	 
+118	thumb0119.jpg	 
+119	thumb0120.jpg	 
+120	thumb0121.jpg	 
+121	thumb0122.jpg	 
+122	thumb0123.jpg	 
+123	thumb0124.jpg	 
+124	thumb0125.jpg	 
+125	thumb0126.jpg	2299
+126	thumb0127.jpg	 
+127	thumb0128.jpg	 
+128	thumb0129.jpg	 
+129	thumb0130.jpg	2326
+130	thumb0131.jpg	 
+131	thumb0132.jpg	 
+132	thumb0133.jpg	 
+133	thumb0134.jpg	2355
+134	thumb0135.jpg	 
+135	thumb0136.jpg	 
+136	thumb0137.jpg	 
+137	thumb0138.jpg	 
+138	thumb0139.jpg	 
+139	thumb0140.jpg	 
+140	thumb0141.jpg	 
+141	thumb0142.jpg	2381
+142	thumb0143.jpg	
+143	thumb0144.jpg	 
+144	thumb0145.jpg	 
+145	thumb0146.jpg	2406
+146	thumb0147.jpg	
+147	thumb0148.jpg	 
+148	thumb0149.jpg	 
+149	thumb0150.jpg	 
+150	thumb0151.jpg	 
+151	thumb0152.jpg	 
+152	thumb0153.jpg	 
+153	thumb0154.jpg	2431
+154	thumb0155.jpg	 
+155	thumb0156.jpg	 
+156	thumb0157.jpg	 
+157	thumb0158.jpg	2457
+158	thumb0159.jpg	 
+159	thumb0160.jpg	 
+160	thumb0161.jpg	 
+161	thumb0162.jpg	 
+162	thumb0163.jpg	 
+163	thumb0164.jpg	 
+164	thumb0165.jpg	 
+165	thumb0166.jpg	2481
+166	thumb0167.jpg	 
+167	thumb0168.jpg	 
+168	thumb0169.jpg	 
+169	thumb0170.jpg	2507
+170	thumb0171.jpg	 
+171	thumb0172.jpg	 
+172	thumb0173.jpg	 
+173	thumb0174.jpg	 
+174	thumb0175.jpg	 
+175	thumb0176.jpg	 
+176	thumb0177.jpg	 
+177	thumb0178.jpg	2533
+178	thumb0179.jpg	 
+179	thumb0180.jpg	 
+180	thumb0181.jpg	 
+181	thumb0182.jpg	2558
+182	thumb0183.jpg	 
+183	thumb0184.jpg	 
+184	thumb0185.jpg	 
+185	thumb0186.jpg	 
+186	thumb0187.jpg	 
+187	thumb0188.jpg	 
+188	thumb0189.jpg	 
+189	thumb0190.jpg	 
+190	thumb0191.jpg	 
+191	thumb0192.jpg	 
+192	thumb0193.jpg	 
+193	thumb0194.jpg	2584
+194	thumb0195.jpg	 
+195	thumb0196.jpg	 
+196	thumb0197.jpg	 
+197	thumb0198.jpg	2611
+198	thumb0199.jpg	 
+199	thumb0200.jpg	 
+200	thumb0201.jpg	 
+201	thumb0202.jpg	2639
+202	thumb0203.jpg	 
+203	thumb0204.jpg	 
+204	thumb0205.jpg	 
+205	thumb0206.jpg	 
+206	thumb0207.jpg	 
+207	thumb0208.jpg	 
+208	thumb0209.jpg	 
+209	thumb0210.jpg	2664
+210	thumb0211.jpg	 
+211	thumb0212.jpg	 
+212	thumb0213.jpg	 
+213	thumb0214.jpg	2690
+214	thumb0215.jpg	 
+215	thumb0216.jpg	 
+216	thumb0217.jpg	 
+217	thumb0218.jpg	 
+218	thumb0219.jpg	 
+219	thumb0220.jpg	 
+220	thumb0221.jpg	 
+221	thumb0222.jpg	2717
+222	thumb0223.jpg	 
+223	thumb0224.jpg	 
+224	thumb0225.jpg	 
+225	thumb0226.jpg	2742
+226	thumb0227.jpg	 
+227	thumb0228.jpg	 
+228	thumb0229.jpg	 
+229	thumb0230.jpg	 
+230	thumb0231.jpg	 
+231	thumb0232.jpg	 
+232	thumb0233.jpg	 
+233	thumb0234.jpg	 
+234	thumb0235.jpg	 
+235	thumb0236.jpg	 
+236	thumb0237.jpg	 
+237	thumb0238.jpg	2767
+238	thumb0239.jpg	 
+239	thumb0240.jpg	 
+240	thumb0241.jpg	 
+241	thumb0242.jpg	2795
+242	thumb0243.jpg	 
+243	thumb0244.jpg	 
+244	thumb0245.jpg	 
+245	thumb0246.jpg	2822
+246	thumb0247.jpg	 
+247	thumb0248.jpg	 
+248	thumb0249.jpg	 
+249	thumb0250.jpg	 
+250	thumb0251.jpg	 
+251	thumb0252.jpg	 
+252	thumb0253.jpg	 
+253	thumb0254.jpg	2847
+254	thumb0255.jpg	
+255	thumb0256.jpg	 
+256	thumb0257.jpg	 
+257	thumb0258.jpg	2872
+258	thumb0259.jpg	 
+259	thumb0260.jpg	 
+260	thumb0261.jpg	 
+261	thumb0262.jpg	 
+262	thumb0263.jpg	 
+263	thumb0264.jpg	 
+264	thumb0265.jpg	 
+265	thumb0266.jpg	2898
+266	thumb0267.jpg	 
+267	thumb0268.jpg	 
+268	thumb0269.jpg	 
+269	thumb0270.jpg	2923
+270	thumb0271.jpg	 
+271	thumb0272.jpg	 
+272	thumb0273.jpg	 
+273	thumb0274.jpg	 
+274	thumb0275.jpg	 
+275	thumb0276.jpg	 
+276	thumb0277.jpg	 
+277	thumb0278.jpg	2949
+278	thumb0279.jpg	 
+279	thumb0280.jpg	 
+280	thumb0281.jpg	 
+281	thumb0282.jpg	2975
+282	thumb0283.jpg	 
+283	thumb0284.jpg	 
+284	thumb0285.jpg	 
+285	thumb0286.jpg	 
+286	thumb0287.jpg	 
+287	thumb0288.jpg	 
+288	thumb0289.jpg	 
+289	thumb0290.jpg	3000
+290	thumb0291.jpg	 
+291	thumb0292.jpg	 
+292	thumb0293.jpg	 
+293	thumb0294.jpg	3026
+294	thumb0295.jpg	 
+295	thumb0296.jpg	 
+296	thumb0297.jpg	 
+297	thumb0298.jpg	 
+298	thumb0299.jpg	 
+299	thumb0300.jpg	 
+300	thumb0301.jpg	 
+301	thumb0302.jpg	 
+302	thumb0303.jpg	 
+303	thumb0304.jpg	 
+304	thumb0305.jpg	 
+305	thumb0306.jpg	3050
+306	thumb0307.jpg	 
+307	thumb0308.jpg	 
+308	thumb0309.jpg	 
+309	thumb0310.jpg	3077
+310	thumb0311.jpg	 
+311	thumb0312.jpg	 
+312	thumb0313.jpg	 
+313	thumb0314.jpg	3103
+314	thumb0315.jpg	 
+315	thumb0316.jpg	 
+316	thumb0317.jpg	 
+317	thumb0318.jpg	 
+318	thumb0319.jpg	 
+319	thumb0320.jpg	 
+320	thumb0321.jpg	 
+321	thumb0322.jpg	3129
+322	thumb0323.jpg	 
+323	thumb0324.jpg	 
+324	thumb0325.jpg	 
+325	thumb0326.jpg	 
+326	thumb0327.jpg	 
+327	thumb0328.jpg	 
+328	thumb0329.jpg	 
+329	thumb0330.jpg	3156
+330	thumb0331.jpg	 
+331	thumb0332.jpg	 
+332	thumb0333.jpg	 
+333	thumb0334.jpg	3182
+334	thumb0335.jpg	 
+335	thumb0336.jpg	 
+336	thumb0337.jpg	 
+337	thumb0338.jpg	3209
+338	thumb0339.jpg	 
+339	thumb0340.jpg	 
+340	thumb0341.jpg	 
+341	thumb0342.jpg	 
+342	thumb0343.jpg	 
+343	thumb0344.jpg	 
+344	thumb0345.jpg	 
+345	thumb0346.jpg	 
+346	thumb0347.jpg	 
+347	thumb0348.jpg	 
+348	thumb0349.jpg	 
+349	thumb0350.jpg	3234
+350	thumb0351.jpg	 
+351	thumb0352.jpg	 
+352	thumb0353.jpg	 
+353	thumb0354.jpg	3259
+354	thumb0355.jpg	 
+355	thumb0356.jpg	 
+356	thumb0357.jpg	 
+357	thumb0358.jpg	3288
+358	thumb0359.jpg	 
+359	thumb0360.jpg	 
+360	thumb0361.jpg	 
+361	thumb0362.jpg	 
+362	thumb0363.jpg	 
+363	thumb0364.jpg	 
+364	thumb0365.jpg	 
