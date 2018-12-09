@@ -1,15 +1,5 @@
----
-title: "Un experimento"
+# Un experimento de caída libre
 date: "2018-12-08 22:42"
-published: false
-featured: false
-lang: es
-output: 
-  html_document: 
-    keep_md: yes
-    self_contained: no
-    theme: null
----
 
 
 
@@ -58,12 +48,12 @@ y obtenemos esta imagen[^a8d0cddd], que ya parece decirnos algo:
 
 [^a8d0cddd]: Para limitar la imagen a un tamaño razonable, se puede usar `convert $(seq -w 110 5 245 |sed 's/\(.*\)/col\1.jpg/') +append composite.jpg`
 
-![](../../../images/2018/cmb1/composite.jpg)
+![](composite.jpg)
 
 # Aislando la imagen de la pelota
-::: sidenote
-![Imagen de fondo para aislar la pelota](../../../images/2018/cmb1/bgr.jpg)
-:::
+
+![](bgr.jpg)
+
 Ya que tenemos las herramientas, podemos usar el computador para medir la distancia de la pelota al borde superior en cada frame. Lo ideal es aislar la pelota y separarla del fondo. Para eso necesitamos una referencia del fondo. Como la mayoría de las veces la pelota no está en ningún punto fijo, podemos construir una "imagen de fondo" tomando la mediana de cada frame:
 ```sh
 convert col0???.jpg -evaluate-sequence median bgr.jpg
@@ -82,7 +72,7 @@ convert diff*.jpg +append -negate composite-diff.jpg
 ```
 y obtenemos esto:
 
-![](../../../images/2018/cmb1/composite-diff.jpg)
+![](composite-diff.jpg)
 
 Ahora podemos extraer el canal amarillo de cada archivo `diff*.jpg` y convertirlo a texto. Para esto usamos `convert` una vez más, y escogemos el formato PGM para la salida estándar. Hay 4 líneas de encabezado y luego una línea de texto por cada línea en la imagen. Usando `gawk` calculamos la mediana de cada línea.
 ```sh
