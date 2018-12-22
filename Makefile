@@ -36,8 +36,28 @@ mean%.txt: diff%.jpg
 	convert $^ -channel Y -separate -compress none -depth 8 PGM:- | \
 		awk 'NR>4 {x=0; for(i=1;i<=NF;i++) {x+=$$i}; print int(x/NF)}' > $@
 
-median%.txt: diff%.jpg
+median%-Y.txt: diff%.jpg
 	convert $^ -channel Y -separate -compress none -depth 8 PGM:- | \
+		gawk 'NR>4 {split($$0,b); asort(b,a); print a[int(NF/2)]}' > $@
+
+median%-M.txt: diff%.jpg
+	convert $^ -channel M -separate -compress none -depth 8 PGM:- | \
+		gawk 'NR>4 {split($$0,b); asort(b,a); print a[int(NF/2)]}' > $@
+
+median%-C.txt: diff%.jpg
+	convert $^ -channel C -separate -compress none -depth 8 PGM:- | \
+		gawk 'NR>4 {split($$0,b); asort(b,a); print a[int(NF/2)]}' > $@
+
+median%-R.txt: col%.jpg
+	convert $^ -channel R -separate -compress none -depth 8 PGM:- | \
+		gawk 'NR>4 {split($$0,b); asort(b,a); print a[int(NF/2)]}' > $@
+
+median%-G.txt: col%.jpg
+	convert $^ -channel G -separate -compress none -depth 8 PGM:- | \
+		gawk 'NR>4 {split($$0,b); asort(b,a); print a[int(NF/2)]}' > $@
+
+median%-B.txt: col%.jpg
+	convert $^ -channel B -separate -compress none -depth 8 PGM:- | \
 		gawk 'NR>4 {split($$0,b); asort(b,a); print a[int(NF/2)]}' > $@
 
 max%.txt: diff%.jpg
@@ -47,7 +67,22 @@ max%.txt: diff%.jpg
 mean.tsv: $(patsubst %, mean0%.txt, $(SUBSET2))
 	paste $^ > $@
 
-median.tsv: $(patsubst %, median0%.txt, $(SUBSET2))
+median.tsv: $(patsubst %, median0%-Y.txt, $(SUBSET2))
+	paste $^ > $@
+
+median-C.tsv: $(patsubst %, median0%-C.txt, $(SUBSET2))
+	paste $^ > $@
+
+median-M.tsv: $(patsubst %, median0%-M.txt, $(SUBSET2))
+	paste $^ > $@
+
+median-R.tsv: $(patsubst %, median0%-R.txt, $(SUBSET2))
+	paste $^ > $@
+
+median-G.tsv: $(patsubst %, median0%-G.txt, $(SUBSET2))
+	paste $^ > $@
+
+median-B.tsv: $(patsubst %, median0%-B.txt, $(SUBSET2))
 	paste $^ > $@
 
 max.tsv: $(patsubst %, max0%.txt, $(SUBSET2))
