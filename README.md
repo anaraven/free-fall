@@ -15,16 +15,16 @@ Mi video comienza a velocidad normal por un par de segundos, y luego graba en c�
 Pero no todo está perdido. En teoría el video se graba a una velocidad constante, por lo que se puede usar el mismo video como reloj. Siguiendo una receta que [encontré en internet](https://www.bugcodemaster.com/article/extract-images-frame-frame-video-file-using-ffmpeg), usé `FFMPEG` para crear una imagen de cada frame. La información interesante que entrega `FFMPEG` es:
 
 ```
-  Metadata:
-    major_brand     : qt
-    creation_time   : 2018-12-03T11:06:29.000000Z
-    com.apple.quicktime.make: Apple
-    com.apple.quicktime.model: iPhone SE
-  Duration: 00:00:12.14, start: 0.000000, bitrate: 8981 kb/s
-    Stream #0:1(und): Video: h264 (High) (avc1 / 0x31637661),
-    yuv420p(tv, bt709), 1280x720, 8792 kb/s,
-    30 fps, 30 tbr, 600 tbn, 1200 tbc (default)
-      encoder         : H.264
+Metadata:
+  major_brand     : qt
+  creation_time   : 2018-12-03T11:06:29.000000Z
+  com.apple.quicktime.make: Apple
+  com.apple.quicktime.model: iPhone SE
+Duration: 00:00:12.14, start: 0.000000, bitrate: 8981 kb/s
+  Stream #0:1(und): Video: h264 (High) (avc1 / 0x31637661),
+  yuv420p(tv, bt709), 1280x720, 8792 kb/s,
+  30 fps, 30 tbr, 600 tbn, 1200 tbc (default)
+  encoder         : H.264
 ```
 
 Con 30 frames/segundo por 12.14 segundos, se obtienen 365 archivos *jpg*. Revisando cuadro por cuadro decidí que lo más interesante sucede entre el frame 110 y el 245.
@@ -246,6 +246,18 @@ confint(model_time)
 (Intercept) 1789.45 1799.50
 frame          4.14    4.19
 ```
+En otras palabras el *frame rate* es
+
+```r
+1000/coef(model_time)["frame"]
+```
+
+```
+frame 
+  240 
+```
+frames por segundo. El valor nominal es de 240 cuadros por segundo.
+
 Ahora podemos agregar una columna con el tiempo en milisegundos de cada frame. Para simplificar el siguiente análisis vamos a fijar el primer frame como tiempo 0.
 
 
@@ -270,7 +282,7 @@ Hay varios peaks equiespaciados (o casi). Estos corresponden a las transiciones 
 
 ```r
 px <- which(last_frame>25 & last_frame<50)
-hist(px, nclass=20,col="grey")
+hist(px, nclass=20, col="grey")
 ```
 
 <img src="un-experimento_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" />
@@ -321,12 +333,24 @@ Multiple R-squared:  0.999,	Adjusted R-squared:  0.999
 F-statistic: 1.51e+04 on 1 and 14 DF,  p-value: <2e-16
 ```
 
+Por lo tanto cada barra de approx. 19cm corresponde a
+
+```r
+0.19/coef(model_dist)["px"]
+```
+
+```
+px 
+80 
+```
+pixeles. El programa del cronómetro permite cambiar el tamaño de las barras en incrementos de 10 pixeles. Un tamaño de 80 pixeles por barra corresponde muy bien con esto.
+
 # Modelo Final
 Ahora estamos en condiciones de juntar todo. Agregamos una columna con la posición vertical en metros y otra con el tiempo en segundos. Para calcular el modelo polinomial de segundo grado, agregamos otra columna con el tiempo al cuadrado.
 
 
 ```r
-fall$y_m <- predict(model_dist, newdata=data.frame(px=fall$px))
+fall$y_m <- predict(model_dist, newdata=data.frame(px=fall$y))
 fall$t_sec <- fall$time/1000
 fall$t_sec2 <- fall$t_sec^2
 ```
@@ -348,31 +372,49 @@ summary(model_final)
 ```
 
 Call:
-lm(formula = y_m ~ t_sec + t_sec2, data = fall)
+lm(formula = y_m ~ t_sec + t_sec2, data = fall, subset = 10:126)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--0.02641 -0.00795  0.00133  0.00809  0.01970 
+      Min        1Q    Median        3Q       Max 
+-0.025493 -0.006779 -0.000409  0.006975  0.024526 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  0.19495    0.00278   70.01  < 2e-16 ***
-t_sec        0.11290    0.02287    4.94  2.3e-06 ***
-t_sec2      -5.03312    0.03934 -127.94  < 2e-16 ***
+(Intercept)  0.18884    0.00416   45.36   <2e-16 ***
+t_sec        0.08340    0.03394    2.46    0.016 *  
+t_sec2      -4.93735    0.05928  -83.28   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.011 on 133 degrees of freedom
+Residual standard error: 0.0114 on 114 degrees of freedom
 Multiple R-squared:  0.999,	Adjusted R-squared:  0.999 
-F-statistic: 1.2e+05 on 2 and 133 DF,  p-value: <2e-16
+F-statistic: 6.77e+04 on 2 and 114 DF,  p-value: <2e-16
 ```
 
-De acuerdo a esto, la aceleración de gravedad es 10m/s^2^. Un poco mucho. Sospecho que:
+De acuerdo a esto, la aceleración de gravedad es $9.875m/s^2$.
+
+```r
+-2*coef(model_final)["t_sec2"]
+```
+
+```
+t_sec2 
+  9.87 
+```
+
+```r
+-2*confint(model_final)["t_sec2",]
+```
+
+```
+ 2.5 % 97.5 % 
+ 10.11   9.64 
+```
+Un poco mucho. Sospecho que:
 
 + Hay que tener un mejor reloj
 + Hay que medir las distancias con más cuidado
 
 El verdadero desafío es rehacer todo llevando la cuenta de los márgenes de error en cada paso.
-
 
 [^1]: Para limitar la imagen a un tamaño razonable, se puede usar `convert $(seq -w 110 5 245 |sed 's/\(.*\)/col\1.jpg/') +append composite.jpg`
