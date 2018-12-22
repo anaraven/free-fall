@@ -108,7 +108,7 @@ image(x=frames, y=pixels, z=t(signal)[,rev(pixels)],
 
 La matriz `signal` tiene una columna por cada frame y una fila por cada pixel en el eje vertical.
 
-En principio podemos encontrar la localización de cada *peak* usando la función `which.max()` en cada columna, pero el resultado no es muy bueno
+En principio podemos encontrar la localización de cada *peak* usando la función `which.max()` en cada columna, pero el resultado no es muy bueno.
 
 
 ```r
@@ -119,7 +119,7 @@ plot(y ~ frames, data=fall)
 
 <img src="un-experimento_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" />
 
-Podemos reducir el ruido tomando un filtro de mediana móvil. Ahora la localización de la pelota se vé mucho mejor
+Podemos reducir el ruido tomando un filtro de mediana móvil. Ahora la localización de la pelota se vé mucho mejor.
 
 
 ```r
@@ -161,7 +161,7 @@ Multiple R-squared:  0.999,	Adjusted R-squared:  0.999
 F-statistic: 1.2e+05 on 2 and 133 DF,  p-value: <2e-16
 ```
 
-Esta prueba de concepto está limitada por las unidades de medida. Tenemos pixeles por frame, y queremos metros por segundo. Necesitamos más información
+Esta prueba de concepto está limitada por las unidades de medida. Tenemos pixeles por frame, y queremos metros por segundo. Necesitamos más información.
 
 # ¿Cuánto dura cada frame?
 En el video original, y en cada imagen de un frame completo, se puede ver el cronómetro. En teoría se puede usar OCR para obtener ese número. En la práctica es más fácil hacerlo "a mano", con la ayuda del computador.
@@ -205,7 +205,7 @@ abline(v=which(f$frame==thr))
 <img src="un-experimento_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" />
 
 
-Esto quiere decir que el frame `thr=`31 es el primero en cámara lenta. Usamos ese limite para construir un modelo lineal
+Esto quiere decir que el frame `thr=`31 es el primero en cámara lenta. Usamos ese limite para construir un modelo lineal.
 
 
 ```r
@@ -234,7 +234,7 @@ Multiple R-squared:     1,	Adjusted R-squared:     1
 F-statistic: 1.29e+05 on 1 and 52 DF,  p-value: <2e-16
 ```
 
-Es decir, cada frame tiene una duración de 4.168 milisegundos, en promedio. Más precistamente, la duración está en este intervalo
+Es decir, cada frame tiene una duración de 4.168 milisegundos, en promedio. Más precistamente, la duración está en este intervalo.
 
 
 ```r
